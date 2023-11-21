@@ -1,20 +1,8 @@
 package org.firstinspires.ftc.teamcode;
-
-import androidx.annotation.NonNull;
-
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-
-import org.firstinspires.ftc.teamcode.Hardware;
 
 public class Drivetrain extends Hardware {
-    private static double power1;
-    private static double power2;
-    private static double power3;
-    private static double power4;
-    private static double Kp = 0.0008;
+    private static final double Kp = 0.0008;
     public static double turn;
     public static void initDrivetrain() {
         //reset
@@ -38,12 +26,18 @@ public class Drivetrain extends Hardware {
         m3.setDirection(DcMotor.Direction.FORWARD);
         m4.setDirection(DcMotor.Direction.FORWARD);
     }
+    public static void resetEncoders() {
+        m1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        m2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        m3.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        m4.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
     public static void driveWithInput(double x, double y) {
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(Drivetrain.turn), 1);
-        power1 = (y + x + Drivetrain.turn) / denominator;
-        power2 = (y - x - Drivetrain.turn) / denominator;
-        power3 = (y - x + Drivetrain.turn) / denominator;
-        power4 = (y + x - Drivetrain.turn) / denominator;
+        double power1 = (y + x + Drivetrain.turn) / denominator;
+        double power2 = (y - x - Drivetrain.turn) / denominator;
+        double power3 = (y - x + Drivetrain.turn) / denominator;
+        double power4 = (y + x - Drivetrain.turn) / denominator;
         m1.setPower(power1);
         m2.setPower(power2);
         m3.setPower(power3);
