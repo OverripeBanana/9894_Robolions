@@ -46,7 +46,6 @@ public class Drivetrain extends Hardware {
     public static void correctHeading() {
         int leftPos = m1.getCurrentPosition() + m3.getCurrentPosition();
         int rightPos = m2.getCurrentPosition() + m4.getCurrentPosition();
-
         if (leftPos > rightPos) {
             Drivetrain.turn = PID.doPIDStuff(leftPos, rightPos, -Drivetrain.Kp);
         }
